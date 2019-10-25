@@ -39,6 +39,7 @@ us_song=us[us$Track.Name %in% c("Sunflower - Spider-Man: Into the Spider-Verse",
 
 
 ```{r}
+
 min <- as.Date("2019-1-1")
 max <- as.Date("2019-6-30")
 ggplot(us_song, aes(x = us_song$Date, y = us_song$Position)) + 
