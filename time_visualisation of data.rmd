@@ -47,7 +47,7 @@ ggplot(us_song, aes(x = us_song$Date, y = us_song$Position)) +
   
   theme_minimal()+scale_x_date(date_labels = "%b/%Y",limits = c(min, max))
 ```
-As you can see for any perticular song as the time increases its rank increases in the table.
+As you can see for any particular song as the time increases its rank increases in the table.
 Hence we have  to consider not only the features of a song but also the time after release of the song
 
 
