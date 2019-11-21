@@ -18,7 +18,7 @@ The (day, month, year) that corresponds to the data
 
 * **key** (int 1-11): The key the track is in. More info [here](https://en.wikipedia.org/wiki/Pitch_class#Integer_notation).
 
-* **loudness** (float Typically between -60 and 0): Overall loudness of the track in decibeks (dB).
+* **loudness** (float Typically between -60 and 0): Overall loudness of the track in decibels (dB).
 
 * **mode** (int 0-1): Modality (major or minor) of a track. Major - 1, Minor - 0.
 
