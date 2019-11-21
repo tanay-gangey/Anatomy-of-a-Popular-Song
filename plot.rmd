@@ -1,0 +1,167 @@
+```{r}
+library(ggplot2)
+library(corrplot)
+```
+
+```{r}
+path="D:/MAAL 2/sem 5/DataAnalytics/Project/Anatomy-of-a-Popular-Song/"
+
+```
+
+```{r}
+
+
+us$Date=paste0(us$Year,'-',us$Month,'-',us$Day)
+us$Date=as.Date(us$Date)
+us_song=us[us$Track.Name %in% c("Sunflower - Spider-Man: Into the Spider-Verse", "Wow.") ,]
+us_song1=us[us$Track.Name %in% c("Sunflower - Spider-Man: Into the Spider-Verse", "7 rings") ,]
+min <- as.Date("2019-1-1")
+max <- as.Date("2019-6-30")
+ggplot(us_song, aes(x = us_song$Date, y = (100-us_song$Position)/100)) + 
+  geom_line(aes(color = us_song$Track.Name), size = 1) +
+  
+  theme_minimal()+scale_x_date(date_labels = "%b/%Y",limits = c(min, max))+xlab("Time") +
+  ylab("Popularity") +
+  ggtitle("Popularity vs. Time")
+
+ggplot(us_song1, aes(x = us_song1$Age.on.Chart, y = (100-us_song1$Position)/100)) + 
+  geom_line(aes(color = us_song1$Track.Name), size = 1) +
+  
+  theme_minimal()+
+  ylab("Popularity") +
+  ggtitle("Popularity vs. Age of song")
+
+
+```
+Graph 1 shows that the popularity of a song goes down with time(Example taken of 2 songs). However in graph 1  we notice that on 8th febrauary 2019 both the songs popularity goes down . Why is this?
+
+One 8th february 2019 Ariana Grande relased an album "Thank you next which contisted of 10 songs . hence on this day popularity of other songs went down".
+
+From the next graph between sunflower and 7 rings we can see that the Ariana Grande's Album  dint do so well .So it decreased ,where as sunflower did well over time.
+
+
+
+SEEING THE VALUE SPREAD OF DIFFRENT FEATURES OF POPULAR SONGS IN DIFFRENT COUNTRIES
+
+```{r}
+path1="norm-age-waf-data/us_waf.csv"
+path2="norm-age-waf-data/pa_waf.csv"
+path3="norm-age-waf-data/ph_waf.csv"
+path4="norm-age-waf-data/de_waf.csv"
+path5="norm-age-waf-data/es_waf.csv"
+path6="norm-age-waf-data/fr_waf.csv"
+
+
+```
+
+```{r}
+us = read.csv(paste0(path,path1))
+pa = read.csv(paste0(path,path2))
+ph = read.csv(paste0(path,path3))
+de = read.csv(paste0(path,path4))
+es = read.csv(paste0(path,path5))
+fr = read.csv(paste0(path,path6))
+
+```
+
+```{r}
+x=data.frame(us$danceability, pa$danceability,ph$danceability,de$danceability,es$danceability,fr$danceability)
+x1=data.frame(us$acousticness, pa$acousticness,ph$acousticness,de$acousticness,es$acousticness,fr$acousticness)
+
+x2=data.frame(us$energy, pa$energy,ph$energy,de$energy,es$energy,fr$energy)
+
+x3=data.frame(us$speechiness,pa$speechiness,ph$speechiness,de$speechiness,es$speechiness,fr$speechiness)
+
+x4=data.frame(us$liveness,pa$liveness,ph$liveness,de$liveness,es$liveness,fr$liveness)
+
+x5=data.frame(us$norm_tempo,pa$norm_tempo,ph$norm_tempo,de$norm_tempo,es$norm_tempo,fr$norm_tempo)
+
+```
+
+```{r}
+
+par(mfrow=c(2,2))
+boxplot(x,names = c("us", "pa", "ph","de","es","fr"),
+col = c("orange"),
+border = "brown",xlab="Country",
+ylab="Dancability")
+
+boxplot(x1,names = c("us", "pa", "ph","de","es","fr"),col = c("light blue"),xlab="Country",
+ylab="Acousticness")
+
+boxplot(x2,names = c("us", "pa", "ph","de","es","fr"),col = c("light green"),xlab="Country",
+ylab="Energy")
+
+boxplot(x3,names = c("us", "pa", "ph","de","es","fr"),col = c("yellow"),xlab="Country",
+ylab="Speechiness")
+
+boxplot(x5,names = c("us", "pa", "ph","de","es","fr"),col = c("grey"),xlab="Country",
+ylab="tempo")
+
+```
+
+From the above graphs we can conclude that popular songs have:
+1) High dancability
+2) Low acoustics
+3) Medium energy (Slightly on higher side)
+4) Low speechiness
+5) Medium Tempo (Slightly on lower side)
+
+```{r}
+us_cor=data.frame(us$energy,us$danceability,us$speechiness,us$norm_loudness,us$norm_tempo,us$norm_duration_min,us$acousticness)
+par(mfrow=c(1,1))
+m=cor(us_cor)
+
+corrplot(m, method="color")
+
+```
+With in a country the few attributes have correlation
+1) Energy and Loudness have a positive correlation as expected
+2) Energy and acousticness have negative correlation
+
+
+
+```{r}
+par(mfrow=c(1,2))
+energy=data.frame(us$energy,pa$energy,ph$energy,es$energy,de$energy,fr$energy)
+m1=cor(energy)
+
+corrplot(m1, method="number")
+sp=data.frame(us$speechiness,pa$speechiness,ph$speechiness,es$speechiness,de$speechiness,fr$speechiness)
+m2=cor(sp)
+
+corrplot(m2, method="number")
+```
+
+Note that there is no colrelation between the attributes of diffrent countries
+
+```{r}
+par(mfrow=c(1,2))
+d<-data.frame(us$Date,us$danceability)
+ag=aggregate(us$danceability ~ us$Date, d, mean)
+
+
+min <- as.Date("2019-1-1")
+max <- as.Date("2019-6-30")
+ggplot(ag, aes(x = ag$`us$Date`, y =ag$`us$danceability`) )+ 
+  geom_line(aes(color = "Dancabilty"), size = 1) +
+  
+  theme_minimal()+scale_x_date(date_labels = "%b/%Y",limits = c(min, max))+xlab("Time") +
+  ylab("Dancability") +
+  ggtitle("Dancabilty of popular songs vs. Time")
+d<-data.frame(us$Date,us$energy)
+ag=aggregate(us$energy ~ us$Date, d, mean)
+ggplot(ag, aes(x = ag$`us$Date`, y =ag$`us$energy`) )+ 
+  geom_line(aes(color = "Energy"), size = 1) +
+  
+  theme_minimal()+scale_x_date(date_labels = "%b/%Y",limits = c(min, max))+xlab("Time") +
+  ylab("Energy") +
+  ggtitle("Energy of popular songs vs. Time")
+
+
+
+```
+
+
+
+

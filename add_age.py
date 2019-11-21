@@ -7,13 +7,13 @@ Created on Fri Nov 15 11:40:03 2019
 import pandas as pd
 import os
 path = os.getcwd() + '/normdata/'
-path_out = os.getcwd() + '/norm-age-data/'
+path_out = os.getcwd() + '/norm-age-waf-data/'
 
 for i in os.listdir(path):
-    if("waf"  not in i):
+    if("waf" in i):
         dictofsongs = dict()
         df = pd.read_csv(path+i)
-        df.insert(9,'Age on Chart', [0 for i in range(len(df))], True)
+        df.insert(23,'Age on Chart', [0 for i in range(len(df))], True)
         for idx,row in df.iterrows():
             if(row['Track Name'] not in dictofsongs):
                 dictofsongs[row['Track Name']] = 0
