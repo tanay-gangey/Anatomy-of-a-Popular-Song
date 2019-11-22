@@ -1,4 +1,6 @@
 ```{r}
+#install.packages(ggplot2)
+#install.packages(corrplot)
 library(ggplot2)
 library(corrplot)
 ```
@@ -9,6 +11,7 @@ path="../datasets/"
 ```
 
 ```{r}
+#paths to six random countries 
 path1="normalized-age-data-waf/us_waf.csv"
 path2="normalized-age-data-waf/pa_waf.csv"
 path3="normalized-age-data-waf/ph_waf.csv"
@@ -20,6 +23,7 @@ path6="normalized-age-data-waf/fr_waf.csv"
 ```
 
 ```{r}
+#reading the files into data frames
 us = read.csv(paste0(path,path1))
 pa = read.csv(paste0(path,path2))
 ph = read.csv(paste0(path,path3))
@@ -30,12 +34,19 @@ fr = read.csv(paste0(path,path6))
 ```
 
 ```{r}
+#making the data a Date type
 us$Date=paste0(us$Year,'-',us$Month,'-',us$Day)
 us$Date=as.Date(us$Date)
+
+#takes the subset of the dataset that contains only the songs mentioned in the list
 us_song=us[us$Track.Name %in% c("Sunflower - Spider-Man: Into the Spider-Verse", "Wow.") ,]
 us_song1=us[us$Track.Name %in% c("Sunflower - Spider-Man: Into the Spider-Verse", "7 rings") ,]
+
+#range of dates to plot for
 min <- as.Date("2019-1-1")
 max <- as.Date("2019-6-30")
+
+#plotting the inverse position of the song against time 
 ggplot(us_song, aes(x = us_song$Date, y = (100-us_song$Position)/100)) + 
   geom_line(aes(color = us_song$Track.Name), size = 1) +
   
@@ -68,6 +79,8 @@ SEEING THE VALUE SPREAD OF DIFFRENT FEATURES OF POPULAR SONGS IN DIFFRENT COUNTR
 
 
 ```{r}
+
+#getting attributes to subset dataframe plot for boxplot
 x=data.frame(us$danceability, pa$danceability,ph$danceability,de$danceability,es$danceability,fr$danceability)
 x1=data.frame(us$acousticness, pa$acousticness,ph$acousticness,de$acousticness,es$acousticness,fr$acousticness)
 
@@ -82,6 +95,8 @@ x5=data.frame(us$norm_tempo,pa$norm_tempo,ph$norm_tempo,de$norm_tempo,es$norm_te
 ```
 
 ```{r}
+
+#plotting the boxplots
 
 par(mfrow=c(2,2))
 boxplot(x,names = c("us", "pa", "ph","de","es","fr"),
@@ -111,6 +126,8 @@ From the above graphs we can conclude that popular songs have:
 5) Medium Tempo (Slightly on lower side)
 
 ```{r}
+
+#plotting the correlogram between select attributes
 us_cor=data.frame(us$energy,us$danceability,us$speechiness,us$norm_loudness,us$norm_tempo,us$norm_duration_min,us$acousticness)
 par(mfrow=c(1,1))
 m=cor(us_cor)
@@ -125,16 +142,29 @@ With in a country the few attributes have correlation
 
 
 ```{r}
+
+
+#energy for 1st position songs for a list of countries 
 par(mfrow=c(1,2))
 energy=data.frame(us$energy[us$Position == 1],pa$energy[pa$Position == 1],ph$energy[ph$Position == 1],es$energy[es$Position == 1],de$energy[de$Position == 1],fr$energy[fr$Position == 1])
 m1=cor(energy)
+
+#row and column names
 rownames(m1) <- c("US", "PA","PH","ES","DE","FR")
 colnames(m1) <- c("US", "PA","PH","ES","DE","FR")
+
+#plotting correlogram for energy
 corrplot(m1, method="shade",title="ENERGY")
+
+#speechiness for 1st position songs for a list of countries 
 sp=data.frame(us$speechiness[us$Position == 1],pa$speechiness[pa$Position == 1],ph$speechiness[ph$Position == 1],es$speechiness[es$Position == 1],de$speechiness[de$Position == 1],fr$speechiness[fr$Position == 1])
 m2=cor(sp)
+
+#row and column names
 rownames(m2) <- c("US", "PA","PH","ES","DE","FR")
 colnames(m2) <- c("US", "PA","PH","ES","DE","FR")
+
+#plotting correlogram for Speechiness
 corrplot(m2, method="shade",title="SPEECHINESS")
 ```
 
@@ -142,6 +172,8 @@ Note that there is no colrelation between the attributes of diffrent countries
 
 
 ```{r}
+#plots the danceability and energy against time
+
 par(mfrow=c(1,2))
 d<-data.frame(us$Date,us$danceability)
 ag=aggregate(us$danceability ~ us$Date, d, mean)
@@ -150,11 +182,11 @@ ag=aggregate(us$danceability ~ us$Date, d, mean)
 min <- as.Date("2019-1-1")
 max <- as.Date("2019-6-30")
 ggplot(ag, aes(x = ag$`us$Date`, y =ag$`us$danceability`) )+ 
-  geom_line(aes(color = "Dancabilty"), size = 1) +
+  geom_line(aes(color = "Danceability"), size = 1) +
   
   theme_minimal()+scale_x_date(date_labels = "%b/%Y",limits = c(min, max))+xlab("Time") +
-  ylab("Dancability") +
-  ggtitle("Dancabilty of popular songs vs. Time")
+  ylab("Danceability") +
+  ggtitle("Danceability of popular songs vs. Time")
 d<-data.frame(us$Date,us$energy)
 ag=aggregate(us$energy ~ us$Date, d, mean)
 ggplot(ag, aes(x = ag$`us$Date`, y =ag$`us$energy`) )+ 
@@ -164,24 +196,6 @@ ggplot(ag, aes(x = ag$`us$Date`, y =ag$`us$energy`) )+
   ylab("Energy") +
   ggtitle("Energy of popular songs vs. Time")
 
-
-
-```
-
-
-```{r}
-d<-data.frame(us$Position,us$acousticness)
-ag=aggregate(us$acousticness ~ us$Position, d, median)
-
-```
-
-```{r}
-ggplot(ag, aes(x = ag$`us$Position`, y =ag$`us$acousticness`) )+ 
-  geom_line(aes(color = "Loudness"), size = 1) +ylim(0, 1)
-```
-
-
-```{r}
 
 
 ```

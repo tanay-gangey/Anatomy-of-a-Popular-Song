@@ -7,13 +7,18 @@ Created on Fri Nov 15 11:40:03 2019
 '''
 for getting normalized-age-data change path_out
 change if("waf" not in )
-change 23 to 9
+change 23 to 9 in df.insert(23,'Age on Chart', [0 for i in range(len(df))], True)
 '''
 import pandas as pd
 import os
+
+#setting both read and write path
 path = os.getcwd() + '../normalized-data/'
 path_out = os.getcwd() + '../normalized-age-data-waf/'
 
+#now when a song first appears this adds the song as key to a dictionary and
+#increments the dictionary value by 1. When a song appears again, if it is in
+#he dictionary it will increment value giving it's age on chart till that day 
 for i in os.listdir(path):
     if("waf" in i):
         dictofsongs = dict()

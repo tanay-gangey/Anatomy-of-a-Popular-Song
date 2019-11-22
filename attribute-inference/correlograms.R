@@ -3,6 +3,8 @@ library(ellipse)
 
 path = "../datasets/"
 
+#reading the files
+
 us = read.csv(paste0(path,"normalized-age-data-waf/us_waf.csv"))
 au = read.csv(paste0(path,"normalized-age-data-waf/au_waf.csv"))
 gb = read.csv(paste0(path,"normalized-age-data-waf/gb_waf.csv"))
@@ -10,6 +12,8 @@ jp = read.csv(paste0(path,"normalized-age-data-waf/jp_waf.csv"))
 ph = read.csv(paste0(path,"normalized-age-data-waf/ph_waf.csv"))
 
 nc = c(1.10,11,12,13,15,16,17,18,19,20,21)
+
+#plotting correlograms for different countries namely US, Australia, Britain, Japan and Phillipines
 
 us_cor = cor(us[,nc])
 plotcorr(us_cor, main = "US Correlogram", col = "blue", type = "lower")

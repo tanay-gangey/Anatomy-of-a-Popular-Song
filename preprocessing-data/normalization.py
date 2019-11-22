@@ -6,14 +6,18 @@ import os
 readpath = "../datasets/rawdata"
 writepath = "../datasets/normalized-data"
 files = list()
+
+#adding all files in readpath to files list
 for p,d,f in os.walk(readpath):
     for i in f:
         if "waf" in i:
             files.append(i)
         
-        
+#creating object of minmax scaler      
 minmaxscaler = preprocessing.MinMaxScaler()
 
+#for every file we convert duration in ms to min and normalize it
+#we normalize the tempo instrumentalness and loudness using minmax
 for file in files:
     orig_data = pd.read_csv(readpath+file)
     orig_data['tempo'] = (orig_data['tempo'] - orig_data['tempo'].min())/(orig_data['tempo'].max()-orig_data['tempo'].min())
