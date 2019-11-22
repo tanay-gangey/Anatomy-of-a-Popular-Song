@@ -48,7 +48,7 @@ The ranking folder contains three folders, decision-tree, knn, and learn-to-rank
 
 #### knn
 
-[ranking/knn/KNN.ipynb](ranking/knn/KNN.ipynb) 
-
+[ranking/knn/Testtrain on same.ipynb](ranking/knn/Testtrain on same.ipynb) Given a countries name it applies a KNN-Regressor model and gives the K value that gives the best accuracy. It also plots the elbow curve andd prints the value of accuracy for that perticular K value
+[ranking/knn/Diff Countries KNN.ipynb](ranking/knn/Diff Countries KNN.ipynb)This contains 2 funcction train and test .The train function trains the KNN modelgiven the country name. The test basically finds the accuracy of a model on a particular country
 #### learn-to-rank
 
