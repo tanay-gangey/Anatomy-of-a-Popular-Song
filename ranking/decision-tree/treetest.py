@@ -4,8 +4,8 @@ from sklearn import tree
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv("normdata/us_waf.csv")
-data1=pd.read_csv("norm-age-data/us.csv")
+data = pd.read_csv("../../datasets/normalized-age-data-waf/us_waf.csv")
+data1=pd.read_csv("../../datasets/normalized-age-data-waf/us_waf.csv")
 age=data1['Age on Chart']
 
 data["Age_on_Chart"]=age

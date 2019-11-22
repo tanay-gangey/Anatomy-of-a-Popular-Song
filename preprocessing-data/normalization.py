@@ -3,8 +3,8 @@
 import pandas as pd
 from sklearn import preprocessing
 import os
-readpath = "path/to/read/from/"
-writepath = "path/to/write/to/"
+readpath = "../datasets/rawdata"
+writepath = "../datasets/normalized-data"
 files = list()
 for p,d,f in os.walk(readpath):
     for i in f:

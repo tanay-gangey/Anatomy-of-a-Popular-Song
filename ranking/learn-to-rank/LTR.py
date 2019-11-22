@@ -12,10 +12,10 @@ import pyltr as ltr
 from sklearn.model_selection import train_test_split 
 import numpy as np
 
-path = "C:/Users/Tanay/College/3rd_year/5th_sem/Data-Analytics/Project/Anatomy-of-a-Popular-Song/"
+path = "../../datasets"
 
-data = pd.read_csv(path + "/normdata/au_waf.csv")
-agedata = pd.read_csv(path+"/norm-age-data/au.csv")
+data = pd.read_csv(path + "/normalized-age-data-waf/au_waf.csv")
+agedata = pd.read_csv(path+"/normalized-age-data/au.csv")
 
 data['Age on Chart'] = agedata['Age on Chart']
 

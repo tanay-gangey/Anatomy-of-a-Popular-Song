@@ -4,10 +4,15 @@ Created on Fri Nov 15 11:40:03 2019
 
 @author: Tanay
 """
+'''
+for getting normalized-age-data change path_out
+change if("waf" not in )
+change 23 to 9
+'''
 import pandas as pd
 import os
-path = os.getcwd() + '/normdata/'
-path_out = os.getcwd() + '/norm-age-waf-data/'
+path = os.getcwd() + '../normalized-data/'
+path_out = os.getcwd() + '../normalized-age-data-waf/'
 
 for i in os.listdir(path):
     if("waf" in i):

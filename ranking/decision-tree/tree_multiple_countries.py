@@ -10,8 +10,8 @@ def mape(y_true, y_pred):
 
 
 def train(country):
-    data = pd.read_csv(f"normdata/{country}_waf.csv")
-    data1=pd.read_csv(f"norm-age-data/{country}.csv")
+    data = pd.read_csv(f"../../datasets/normalized-age-data-waf/{country}_waf.csv")
+    data1=pd.read_csv(f"../../datasets/normalized-age-data-waf/{country}_waf.csv")
     age=data1['Age on Chart']
     
     data["Age_on_Chart"]=age
@@ -27,8 +27,8 @@ def train(country):
     return clf
 
 def test(country, model):
-    data = pd.read_csv(f"normdata/{country}_waf.csv")
-    data1=pd.read_csv(f"norm-age-data/{country}.csv")
+    data = pd.read_csv(f"../../datasets/normalized-age-data-waf/{country}_waf.csv")
+    data1=pd.read_csv(f"../../datasets/normalized-age-data-waf/{country}_waf.csv")
     age=data1['Age on Chart']
     
     data["Age_on_Chart"]=age
@@ -39,3 +39,5 @@ def test(country, model):
     y_pred = model.predict(x_test)
     
     return mape(y_test, y_pred)
+model=train("us")
+print(test("ph",model))

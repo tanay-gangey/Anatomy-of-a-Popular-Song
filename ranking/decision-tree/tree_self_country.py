@@ -12,8 +12,8 @@ def mape(y_true, y_pred):
 
 
 def acc(country):
-    data = pd.read_csv(f"normdata/{country}_waf.csv")
-    data1=pd.read_csv(f"norm-age-data/{country}.csv")
+    data = pd.read_csv(f"../../datasets/normalized-age-data-waf/{country}_waf.csv")
+    data1=pd.read_csv(f"../../datasets/normalized-age-data-waf/{country}_waf.csv")
     age=data1['Age on Chart']
     
     data["Age_on_Chart"]=age
@@ -34,3 +34,5 @@ def acc(country):
     y_pred = clf.predict(x_test)
     
     print(100-mape(y_test, y_pred))
+    
+acc("us")
