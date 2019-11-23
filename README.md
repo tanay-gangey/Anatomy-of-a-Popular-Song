@@ -16,6 +16,8 @@ The attribute descriptions are given in the [Attributes_Descriptions](Attributes
 
 ## How-to-execute files
 
+Note: The files should be run in a treminal opened from the folder the files are in 
+
 ### Collecting data
 
 To collect the data just run the makefile on [spotify-worldwide-ranking](https://github.com/davafons/spotify-worldwide-ranking).
