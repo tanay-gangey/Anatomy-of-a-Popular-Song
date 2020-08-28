@@ -59,4 +59,4 @@ The ranking folder contains three folders, decision-tree, knn, and learn-to-rank
 
 #### learn-to-rank
 
-[ranking/learn-to-rank/LTR.py](ranking/learn-to-rank/LTR.py) uses LambdaMART to try to predict the relative ranking between songs. This however does not give satisfactory results.
+[ranking/learn-to-rank/LTR.py](ranking/learn-to-rank/LTR.py) uses LambdaMART to try to predict the relative ranking between multiple songs. This however does not give satisfactory results.
